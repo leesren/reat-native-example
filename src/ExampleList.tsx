@@ -33,16 +33,19 @@ import TextInputExample from './Examples/TextInputExample';
 import ToggleButtonExample from './Examples/ToggleButtonExample';
 import TouchableRippleExample from './Examples/TouchableRippleExample';
 import { config as TabsExampleConfig } from './Examples/scroll-tabs';
+import { config as FormConfig } from './Examples/form';
 
 type Props = {
   theme: Theme;
   navigation: any;
 };
-
+export const initialRouteName = 'RadioGroupButtonExample';
 export const examples1 = {
   form: {
     title: '表单',
-    data: {},
+    data: {
+      ...FormConfig
+    },
     icon: 'menu'
   },
   base: {
@@ -102,6 +105,7 @@ export const examples1 = {
     icon: 'menu'
   }
 };
+
 export const examples = Object.keys(examples1).reduce((acc, current) => {
   let scene = examples1[current];
   let subScene = {};

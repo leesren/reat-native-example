@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { Appbar } from 'react-native-paper';
-import ExampleList, { examples } from './ExampleList';
+import ExampleList, { examples, initialRouteName } from './ExampleList';
 
 const routes = Object.keys(examples)
   .map(id => ({ id, item: examples[id] }))
@@ -35,6 +35,7 @@ export default createStackNavigator(
     ...routes
   },
   {
+    initialRouteName: initialRouteName || undefined,
     defaultNavigationOptions: ({ navigation }: any) => ({
       gestureResponseDistance: {
         horizontal: 45
