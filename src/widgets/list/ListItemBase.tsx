@@ -16,10 +16,13 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 type Props = {
   style?: ViewStyle;
   showLine?: boolean;
+  showArrow?: boolean;
   onPress?: Function;
   title: string;
-  subTitle?: string;
-  subTitleStyle?: TextStyle;
+  note?: string;
+  noteStyle?: TextStyle;
+  description?: string;
+  descriptionStyle?: TextStyle;
   titleStyle?: TextStyle;
 };
 export class ListItemBase extends PureComponent<Props, any> {
@@ -31,10 +34,13 @@ export class ListItemBase extends PureComponent<Props, any> {
       style,
       onPress,
       title,
-      subTitle,
-      subTitleStyle,
+      note,
+      noteStyle,
       titleStyle,
-      showLine
+      showLine,
+      description,
+      descriptionStyle,
+      showArrow = true
     } = this.props;
     return (
       <View style={[style]}>
@@ -64,19 +70,31 @@ export class ListItemBase extends PureComponent<Props, any> {
                 >
                   {title}
                 </IBText>
+                {!!description && (
+                  <IBText
+                    size={12}
+                    color={'#777'}
+                    lineHeight={17}
+                    style={descriptionStyle}
+                  >
+                    {description}
+                  </IBText>
+                )}
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                {!!subTitle && (
+                {!!note && (
                   <IBText
                     size={13}
                     color={'#999999'}
                     lineHeight={20}
-                    style={subTitleStyle}
+                    style={noteStyle}
                   >
-                    {subTitle}
+                    {note}
                   </IBText>
                 )}
-                <Icon name="chevron-right" size={18} color="#CCCCCC" />
+                {showArrow && (
+                  <Icon name="chevron-right" size={18} color="#CCCCCC" />
+                )}
               </View>
             </View>
             {showLine && <Line style={{ marginLeft: 15 }} />}

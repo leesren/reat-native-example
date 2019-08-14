@@ -46,6 +46,7 @@ class Example extends React.Component<any, State> {
           <ScrollView style={{ flex: 1 }} tabLabel="ListItemAvatar">
             <ListItemAvatar
               title={'项目文档'}
+              note="12"
               style={{ backgroundColor: '#fff' }}
               onPress={() => alert('onPress')}
               showLine
@@ -157,13 +158,21 @@ class Example extends React.Component<any, State> {
                   title={el.label}
                   key={index}
                   showLine={true}
-                  subTitle={el.dtjcount}
+                  note={el.dtjcount}
                   style={{ backgroundColor: '#fff' }}
                   subTitleStyle={index === 2 ? { color: '#E95F62' } : {}}
                   onPress={() => alert('onPress')}
                 />
               );
             })}
+            <ListItemBase
+              title={'投资银行总部-苏州思科泽商投资中心-TCL'}
+              showLine={true}
+              description={'2019-05-01 14:00:00'}
+              style={{ backgroundColor: '#fff' }}
+              onPress={() => alert('onPress')}
+              showArrow={false}
+            />
           </ScrollView>
           <ScrollView
             style={{ flex: 1, backgroundColor: '#fff' }}

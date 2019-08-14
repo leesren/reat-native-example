@@ -136,6 +136,21 @@ class Example extends React.Component<any, State> {
             />
           </View>
         </List.Section>
+        <List.Section>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            信息标签-垂直
+          </List.Subheader>
+          <View style={{ paddingHorizontal: 15 }}>
+            <InfoItem
+              lineHeight={20}
+              fontSize={14}
+              label="备注"
+              textAlign="left"
+              direction="column"
+              value="招商证券是百年招商局旗下金融企业，经过二十五年创业发展，各项业务和综合实力均进入国内十强，招商证券是中国证券交易所第一批会员、第一批经核准的综合类券商、第一批主承销商、全国银行间同业拆借市场第一批成员以及第一批具有自营、网上交易和资产管理业务资格的券商。"
+            />
+          </View>
+        </List.Section>
       </ScrollView>
     );
   }

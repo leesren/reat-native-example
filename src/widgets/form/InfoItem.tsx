@@ -7,11 +7,14 @@ type Props = {
   valueStyle?: TextStyle;
   bgStyle?: ViewStyle;
   containerStyle?: ViewStyle;
+  ValueComponent?: React.ReactNode;
   center?: boolean;
   label: string;
   value?: any;
   fontSize?: number;
+  lineHeight?: number;
   textAlign?: 'right' | 'left';
+  direction?: 'row' | 'column';
 };
 type State = {};
 
@@ -28,40 +31,50 @@ export class InfoItem extends PureComponent<Props, State> {
       containerStyle,
       valueStyle,
       fontSize = 16,
-      textAlign = 'right'
+      textAlign = 'right',
+      direction = 'row',
+      lineHeight = 26,
+      ValueComponent
     } = this.props;
     return (
       <View style={{}}>
         <View
           style={[
             {
-              flexDirection: 'row',
+              flexDirection: direction,
               paddingVertical: 8
-            },
+            } as ViewStyle,
             center ? { alignItems: 'center' } : null,
             containerStyle
           ]}
         >
-          <View style={{ marginRight: 10 }}>
+          <View
+            style={{
+              marginRight: 10,
+              marginBottom: direction === 'row' ? 0 : 4
+            }}
+          >
             <IBText
               size={fontSize}
               color={'#9B9DA5'}
-              lineHeight={26}
+              lineHeight={lineHeight}
               style={labelStyle}
             >
               {label}
             </IBText>
           </View>
-          <View style={{ flex: 1 }}>
-            <IBText
-              size={fontSize}
-              color={'#303238'}
-              lineHeight={26}
-              style={[{ textAlign: textAlign }, valueStyle] as TextStyle}
-            >
-              {value}
-            </IBText>
-          </View>
+          {ValueComponent || (
+            <View style={{ flex: 1 }}>
+              <IBText
+                size={fontSize}
+                color={'#303238'}
+                lineHeight={lineHeight}
+                style={[{ textAlign: textAlign }, valueStyle] as TextStyle}
+              >
+                {value}
+              </IBText>
+            </View>
+          )}
         </View>
         <Line />
       </View>

@@ -13,10 +13,12 @@ type Props = {
   onPress?: Function;
   title: string;
   subTitle?: string;
+  subTitleStyle?: TextStyle;
+  note?: string;
   avatar?: any;
   avatarStyle?: ViewStyle;
-  subTitleStyle?: TextStyle;
   titleStyle?: TextStyle;
+  noteStyle?: TextStyle;
   itemIcon?: React.ReactNode;
 };
 export class ListItemAvatar extends PureComponent<Props, any> {
@@ -34,7 +36,9 @@ export class ListItemAvatar extends PureComponent<Props, any> {
       titleStyle,
       showLine,
       itemIcon,
-      avatarStyle
+      avatarStyle,
+      noteStyle,
+      note
     } = this.props;
     return (
       <View style={[style]}>
@@ -109,6 +113,16 @@ export class ListItemAvatar extends PureComponent<Props, any> {
                 </View>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {!!note && (
+                  <IBText
+                    size={13}
+                    color={'#999999'}
+                    lineHeight={20}
+                    style={noteStyle}
+                  >
+                    {note}
+                  </IBText>
+                )}
                 {itemIcon || (
                   <Icon name="chevron-right" size={20} color="#CCCCCC" />
                 )}

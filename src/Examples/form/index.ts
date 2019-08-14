@@ -4,11 +4,13 @@ import RadioExample from './RadioExample';
 import RadioGroupButtonExample from './RadioGroupButtonExample';
 import LabelItemExample from './LabelItemExample';
 import ListExample from './ListExample';
+import PanelExample from './PanelExample';
 export const config = {
   CheckBoxExample: CheckBoxExample,
   CheckboxGroupExample: CheckboxGroupExample,
   RadioExample: RadioExample,
   RadioGroupButtonExample: RadioGroupButtonExample,
   LabelItemExample: LabelItemExample,
-  ListExample: ListExample
+  ListExample: ListExample,
+  PanelExample: PanelExample
 };
