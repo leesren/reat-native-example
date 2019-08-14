@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Text, TextStyle } from 'react-native';
+import { Text, TextStyle, View, ViewStyle } from 'react-native';
 type IBTextProps = {
   type?: string;
   left?: any;
@@ -12,6 +12,7 @@ type IBTextProps = {
   numberOfLines?: number;
   ellipsizeMode?: any; //enum('head', 'middle', 'tail', 'clip')
   lineHeight?: number;
+  onPress?: any;
 };
 export class IBText extends PureComponent<IBTextProps, any> {
   constructor(props: IBTextProps) {
@@ -42,13 +43,79 @@ export class IBText extends PureComponent<IBTextProps, any> {
         {...this.props}
         style={[
           { fontSize: size, textAlign: align, color: color } as TextStyle,
-          lineHeight && { lineHeight: lineHeight },
-          bold && { fontWeight: 'bold' },
+          lineHeight && ({ lineHeight: lineHeight } as TextStyle),
+          bold && ({ fontWeight: 'bold' } as TextStyle),
           style
         ]}
       >
         {this.props.children}
       </Text>
+    );
+  }
+}
+interface IBTextWithUnitProps {
+  value: string | number;
+  unit?: string;
+  label?: string | number;
+  valueStyle?: TextStyle;
+  unitStyle?: TextStyle;
+  labelStyle?: TextStyle;
+  style?: ViewStyle;
+}
+export class IBTextWithUnit extends PureComponent<IBTextWithUnitProps, any> {
+  constructor(props: IBTextWithUnitProps) {
+    super(props);
+  }
+  render() {
+    const {
+      value,
+      unit = '',
+      label,
+      labelStyle = {},
+      unitStyle = {},
+      valueStyle = {},
+      style
+    } = this.props;
+    return (
+      <View style={style}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <IBText
+            size={28}
+            center
+            color={'#FF720D'}
+            lineHeight={44}
+            {...valueStyle}
+          >
+            {value}
+          </IBText>
+          <IBText
+            size={14}
+            center
+            color={'#FF720D'}
+            lineHeight={18}
+            {...unitStyle}
+          >
+            {unit}
+          </IBText>
+        </View>
+        {!!label && (
+          <IBText
+            size={13}
+            center
+            color={'#1F2633'}
+            lineHeight={15}
+            {...labelStyle}
+          >
+            {label}
+          </IBText>
+        )}
+      </View>
     );
   }
 }

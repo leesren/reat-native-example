@@ -9,8 +9,8 @@ import {
   Button
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { RadioItem, RadioGroupHoc } from '../widgets';
-import { IBText } from '../../widgets';
+import { RadioItem, RadioGroupHoc } from '../../widgets';
+import { IBText, Line } from '../../widgets';
 
 type State = {};
 
@@ -35,62 +35,66 @@ class Example extends React.Component<any, State> {
           }
         ]
       });
-    }, 1500);
+    }, 600);
   }
   render() {
     const { colors } = this.props.theme;
     return (
       <ScrollView style={[styles.container]}>
         <List.Section>
-          <List.Subheader>RadioGroup Button </List.Subheader>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            <RadioGroupHoc
-              list={this.state.list}
-              value={this.state.value}
-              valueKey="id"
-              onChange={(item, index) => {
-                this.setState(
-                  {
-                    value: item.id
-                  },
-                  () => {
-                    console.log('value', this.state.value);
-                  }
-                );
-              }}
-              renderItem={props => {
-                return (
-                  <RadioItem
-                    key={props.index}
-                    iconContainer={{ paddingRight: 0, paddingLeft: 6 }}
-                    checked={props.checked}
-                    onPress={props.onPress}
-                    customContent={infoProps => {
-                      return (
-                        <View
-                          style={{
-                            padding: 10,
-                            marginRight: 15,
-                            marginBottom: 10,
-                            backgroundColor: infoProps.checked
-                              ? '#F7F0E1'
-                              : '#F6F6F6'
-                          }}
-                        >
-                          <IBText
-                            size={13}
-                            color={infoProps.checked ? '#D8B66A' : '#595B5F'}
-                            lineHeight={17}
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            RadioGroup Button{' '}
+          </List.Subheader>
+          <View style={{ marginTop: 20 }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              <RadioGroupHoc
+                list={this.state.list}
+                value={this.state.value}
+                valueKey="id"
+                onChange={(item, index) => {
+                  this.setState(
+                    {
+                      value: item.id
+                    },
+                    () => {
+                      console.log('value', this.state.value);
+                    }
+                  );
+                }}
+                renderItem={props => {
+                  return (
+                    <RadioItem
+                      key={props.index}
+                      iconContainer={{ paddingRight: 0, paddingLeft: 6 }}
+                      checked={props.checked}
+                      onPress={props.onPress}
+                      customContent={infoProps => {
+                        return (
+                          <View
+                            style={{
+                              padding: 10,
+                              marginRight: 15,
+                              marginBottom: 10,
+                              backgroundColor: infoProps.checked
+                                ? '#F7F0E1'
+                                : '#F6F6F6'
+                            }}
                           >
-                            {props.item.label}
-                          </IBText>
-                        </View>
-                      );
-                    }}
-                  />
-                );
-              }}
-            />
+                            <IBText
+                              size={13}
+                              color={infoProps.checked ? '#D8B66A' : '#595B5F'}
+                              lineHeight={17}
+                            >
+                              {props.item.label}
+                            </IBText>
+                          </View>
+                        );
+                      }}
+                    />
+                  );
+                }}
+              />
+            </View>
           </View>
         </List.Section>
 
@@ -107,7 +111,9 @@ class Example extends React.Component<any, State> {
         </View>
 
         <List.Section>
-          <List.Subheader>RadioGroup Button </List.Subheader>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            RadioGroup Button{' '}
+          </List.Subheader>
           <RadioGroupHoc
             list={this.state.list}
             value={this.state.value}
@@ -131,26 +137,29 @@ class Example extends React.Component<any, State> {
                   onPress={props.onPress}
                   customContent={infoProps => {
                     return (
-                      <View
-                        style={{
-                          padding: 10,
-                          flexDirection: 'row'
-                        }}
-                      >
-                        <View style={{ flex: 1, paddingVertical: 5 }}>
-                          <IBText
-                            size={13}
-                            color={infoProps.checked ? '#D8B66A' : '#595B5F'}
-                            lineHeight={17}
-                          >
-                            {props.item.label}
-                          </IBText>
+                      <View style={{}}>
+                        <View
+                          style={{
+                            padding: 10,
+                            flexDirection: 'row'
+                          }}
+                        >
+                          <View style={{ flex: 1, paddingVertical: 5 }}>
+                            <IBText
+                              size={13}
+                              color={infoProps.checked ? '#D8B66A' : '#595B5F'}
+                              lineHeight={17}
+                            >
+                              {props.item.label}
+                            </IBText>
+                          </View>
+                          <View style={{}}>
+                            {infoProps.checked && (
+                              <Icon size={22} name="check" color={'#D8B66A'} />
+                            )}
+                          </View>
                         </View>
-                        <View style={{}}>
-                          {infoProps.checked && (
-                            <Icon size={22} name="check" color={'#D8B66A'} />
-                          )}
-                        </View>
+                        <Line style={{ marginLeft: 15 }} />
                       </View>
                     );
                   }}

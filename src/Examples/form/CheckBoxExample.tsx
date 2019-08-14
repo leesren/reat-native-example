@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { IconButton, Colors, withTheme, Theme, List } from 'react-native-paper';
-
-import { CheckboxItem, checkBoxImgs } from '../widgets';
+import { checkBoxImgs, CheckboxItem } from '../../widgets';
 
 type State = {};
 
@@ -20,7 +19,9 @@ class Example extends React.Component<any, State> {
     return (
       <View style={[styles.container]}>
         <List.Section>
-          <List.Subheader>水平模式</List.Subheader>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            水平模式
+          </List.Subheader>
           <View style={{ flexDirection: 'row' }}>
             <CheckboxItem
               checkBoxImg={checkBoxImgs}
@@ -90,7 +91,9 @@ class Example extends React.Component<any, State> {
           </View>
         </List.Section>
         <List.Section>
-          <List.Subheader>垂直模式</List.Subheader>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            垂直模式
+          </List.Subheader>
           <CheckboxItem
             checkBoxImg={checkBoxImgs}
             iconContainer={{ paddingRight: 0, paddingLeft: 6 }}

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import isEqual from 'lodash.isequal';
-import { Img } from '../../widgets';
 import {
   ViewStyle,
   TextStyle,
   View,
   TouchableWithoutFeedback
 } from 'react-native';
-import { IBText } from './IBText';
+import { IBText, Img } from '../base';
+
 type ItemProp = { label: string; value: any; checked?: boolean };
 type Props = {
   disabled?: boolean;
@@ -201,16 +201,16 @@ type CheckboxItemProp = {
   checkBoxImg?: Partial<typeof checkBoxImgs>;
 };
 export const checkBoxImgs = {
-  disabled: <Img width={18} src={require('./img/radio-disabled.png')} />,
+  disabled: <Img width={18} src={require('../img/radio-disabled.png')} />,
   disabledChecked: (
-    <Img width={18} src={require('./img/radio-checked-disabled.png')} />
+    <Img width={18} src={require('../img/radio-checked-disabled.png')} />
   ),
-  checked: <Img width={18} src={require('./img/radio-checked.png')} />,
-  radioChecked: <Img width={18} src={require('./img/radio-selected.png')} />,
+  checked: <Img width={18} src={require('../img/radio-checked.png')} />,
+  radioChecked: <Img width={18} src={require('../img/radio-selected.png')} />,
   radioCheckedDisable: (
-    <Img width={18} src={require('./img/radio-selected-disable.png')} />
+    <Img width={18} src={require('../img/radio-selected-disable.png')} />
   ),
-  unchecked: <Img width={18} src={require('./img/radio-unchecked.png')} />
+  unchecked: <Img width={18} src={require('../img/radio-unchecked.png')} />
 };
 export class CheckboxItem extends React.PureComponent<CheckboxItemProp, any> {
   checkBoxIms = checkBoxImgs;

@@ -9,12 +9,7 @@ import {
   Button
 } from 'react-native-paper';
 
-import {
-  CheckboxItem,
-  checkBoxImgs,
-  RadioItem,
-  RadioGroupHoc
-} from '../widgets';
+import { checkBoxImgs, RadioItem, RadioGroupHoc } from '../../widgets';
 
 type State = {};
 
@@ -33,7 +28,9 @@ class Example extends React.Component<any, State> {
     return (
       <View style={[styles.container]}>
         <List.Section>
-          <List.Subheader>水平模式</List.Subheader>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            水平模式
+          </List.Subheader>
           <View style={{ flexDirection: 'row' }}>
             <RadioItem
               checkBoxImg={checkBoxImgs}
@@ -103,7 +100,9 @@ class Example extends React.Component<any, State> {
           </View>
         </List.Section>
         <List.Section>
-          <List.Subheader>垂直模式</List.Subheader>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            垂直模式
+          </List.Subheader>
           <RadioItem
             checkBoxImg={checkBoxImgs}
             iconContainer={{ paddingRight: 0, paddingLeft: 6 }}

@@ -4,8 +4,7 @@
  * @description 图片图标组件
  */
 import React, { Component } from 'react';
-import { PureComponent, ViewPropTypes, Image } from 'react-native';
-import OAColor from '../../theme/OAColor';
+import { Image } from 'react-native';
 
 type ImgProps = {
   src?: string;

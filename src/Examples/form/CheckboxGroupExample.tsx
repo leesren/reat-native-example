@@ -8,14 +8,14 @@ import {
 } from 'react-native';
 import { withTheme, Button } from 'react-native-paper';
 import { ScrollView } from 'react-navigation';
-import { Line, Img } from '../../widgets';
 import OAColor from '../../theme/OAColor';
 import {
   CheckBoxHoc,
   ToggleVisibleHoc,
   CheckBoxGroupHoc,
   checkBoxImgs
-} from '../widgets';
+} from '../../widgets';
+import { Line } from '../../widgets';
 
 type State = {};
 

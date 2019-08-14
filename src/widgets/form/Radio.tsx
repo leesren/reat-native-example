@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import isEqual from 'lodash.isequal';
-import { Img, IBText } from '../../widgets';
 import {
   ViewStyle,
   TextStyle,
@@ -8,6 +7,7 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 import { checkBoxImgs } from './CheckBox';
+import { IBText } from '../base';
 interface Props {
   valueKey?: string;
   value?: any;
