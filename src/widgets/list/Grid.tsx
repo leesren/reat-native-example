@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, ViewStyle, Dimensions, StyleSheet } from 'react-native';
+import { View, ViewStyle, StyleSheet } from 'react-native';
 /**
  * @author shaorencen@yodinfo.com
  * @Component
@@ -19,14 +19,8 @@ export class Grid extends PureComponent<Props, any> {
   }
 
   render() {
-    let {
-      row = 1,
-      col = 1,
-      containerWidth = Dimensions.get('window').width,
-      itemWarpStyle,
-      showBorder = false
-    } = this.props;
-    const itemWidth = containerWidth / col;
+    let { row = 1, col = 1, itemWarpStyle, showBorder = false } = this.props;
+    const itemWidth = (1 / col) * 100;
     let items = React.Children.map(this.props.children, child => child);
     return (
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -38,7 +32,7 @@ export class Grid extends PureComponent<Props, any> {
                 key={index}
                 style={[
                   {
-                    width: itemWidth
+                    width: itemWidth + '%'
                   },
                   showBorder
                     ? {

@@ -9,7 +9,7 @@ import {
   Button
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { RadioItem, RadioGroupHoc } from '../../widgets';
+import { RadioItem, RadioGroupHoc, Tag } from '../../widgets';
 import { IBText, Line } from '../../widgets';
 
 type State = {};
@@ -63,34 +63,21 @@ class Example extends React.Component<any, State> {
                 }}
                 renderItem={props => {
                   return (
-                    <RadioItem
+                    <Tag
                       key={props.index}
-                      iconContainer={{ paddingRight: 0, paddingLeft: 6 }}
-                      checked={props.checked}
-                      onPress={props.onPress}
-                      customContent={infoProps => {
-                        return (
-                          <View
-                            style={{
-                              padding: 10,
-                              marginRight: 15,
-                              marginBottom: 10,
-                              backgroundColor: infoProps.checked
-                                ? '#F7F0E1'
-                                : '#F6F6F6'
-                            }}
-                          >
-                            <IBText
-                              size={13}
-                              color={infoProps.checked ? '#D8B66A' : '#595B5F'}
-                              lineHeight={17}
-                            >
-                              {props.item.label}
-                            </IBText>
-                          </View>
-                        );
+                      shape={false}
+                      style={{ marginRight: 10, marginBottom: 10 }}
+                      bgColor={props.checked ? '#F7F0E1' : '#F6F6F6'}
+                      color={props.checked ? '#D8B66A' : '#595B5F'}
+                      fontSize={13}
+                      onPress={props.onPress as any}
+                      warpStyle={{
+                        paddingHorizontal: 12,
+                        paddingVertical: 10
                       }}
-                    />
+                    >
+                      {props.item.label}
+                    </Tag>
                   );
                 }}
               />

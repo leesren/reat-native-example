@@ -10,7 +10,7 @@ import {
   TextStyle,
   Platform,
   TouchableNativeFeedback,
-  TouchableWithoutFeedback,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 type Props = {
@@ -24,7 +24,12 @@ type Props = {
   textStyle?: TextStyle;
   style?: ViewStyle;
   tabStyle?: ViewStyle;
-  renderTab?: Function;
+  renderTab?: (
+    name: string,
+    page: number,
+    isTabActive: boolean,
+    onPressHandler: (page: number) => void
+  ) => React.ReactNode;
   underlineStyle?: ViewStyle;
   tabLineStyle?: ViewStyle;
   underlineHeight?: number;
@@ -35,12 +40,17 @@ export default class DefaultTabBarBase extends React.Component<Props, any> {
   static defaultProps = {
     activeTextColor: 'navy',
     inactiveTextColor: 'black',
-    backgroundColor: null,
+    backgroundColor: null
   };
 
   renderTabOption = (name, page) => {};
 
-  renderTab = (name, page, isTabActive, onPressHandler) => {
+  renderTab = (
+    name: string,
+    page: number,
+    isTabActive: boolean,
+    onPressHandler: (page: number) => void
+  ) => {
     const { activeTextColor, inactiveTextColor, textStyle } = this.props;
     const textColor = isTabActive ? activeTextColor : inactiveTextColor;
     const fontWeight = isTabActive ? 'bold' : 'normal';
@@ -70,7 +80,7 @@ export default class DefaultTabBarBase extends React.Component<Props, any> {
       underlineWidth,
       underlineHeight,
       containerWidth,
-      activeTextColor,
+      activeTextColor
     } = this.props;
     const tabWidth = containerWidth / numberOfTabs;
     const customTabWidth = underlineWidth || tabWidth;
@@ -81,12 +91,12 @@ export default class DefaultTabBarBase extends React.Component<Props, any> {
       height: 2,
       backgroundColor: activeTextColor || 'navy',
       bottom: 0,
-      left: startX,
+      left: startX
     };
 
     const translateX = this.props.scrollValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, tabWidth],
+      outputRange: [0, tabWidth]
     });
     return (
       <View
@@ -95,11 +105,11 @@ export default class DefaultTabBarBase extends React.Component<Props, any> {
             borderWidth: !isNaN(underlineHeight)
               ? underlineHeight
               : StyleSheet.hairlineWidth,
-            borderColor: '#ccc',
+            borderColor: '#ccc'
           },
           styles.tabs,
           { backgroundColor: this.props.backgroundColor },
-          this.props.style,
+          this.props.style
         ]}
       >
         {this.props.tabs.map((name, page) => {
@@ -111,9 +121,9 @@ export default class DefaultTabBarBase extends React.Component<Props, any> {
           style={[
             tabUnderlineStyle,
             {
-              transform: [{ translateX }],
+              transform: [{ translateX }]
             },
-            this.props.underlineStyle,
+            this.props.underlineStyle
           ]}
         />
       </View>
@@ -145,7 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 2,
+    paddingBottom: 2
   },
   tabs: {
     height: 50,
@@ -153,6 +163,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     borderTopWidth: 0,
     borderLeftWidth: 0,
-    borderRightWidth: 0,
-  },
+    borderRightWidth: 0
+  }
 });

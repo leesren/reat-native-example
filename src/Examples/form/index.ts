@@ -5,6 +5,8 @@ import RadioGroupButtonExample from './RadioGroupButtonExample';
 import LabelItemExample from './LabelItemExample';
 import ListExample from './ListExample';
 import PanelExample from './PanelExample';
+import TagExample from './TagExample';
+import RadioGroupButtonLinkExample from './RadioGroupButtonLinkExample';
 export const config = {
   CheckBoxExample: CheckBoxExample,
   CheckboxGroupExample: CheckboxGroupExample,
@@ -12,5 +14,7 @@ export const config = {
   RadioGroupButtonExample: RadioGroupButtonExample,
   LabelItemExample: LabelItemExample,
   ListExample: ListExample,
-  PanelExample: PanelExample
+  PanelExample: PanelExample,
+  TagExample: TagExample,
+  RadioGroupButtonLinkExample: RadioGroupButtonLinkExample
 };

@@ -20,6 +20,11 @@ class TabsExample extends React.Component<any, State> {
             right={props => <List.Icon {...props} icon="chevron-right" />}
           />
           <List.Item
+            title="基本使用-自定义tab"
+            onPress={() => this.props.navigation.navigate('BaseScrollTab2')}
+            right={props => <List.Icon {...props} icon="chevron-right" />}
+          />
+          <List.Item
             onPress={() =>
               this.props.navigation.navigate('ScrollableTabsExample')
             }

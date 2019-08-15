@@ -4,6 +4,7 @@ import OverlayExample from './OverlayExample';
 import FacebookExample from './FacebookExample';
 import ScrollTab from './ScrollTab';
 import TabsExample from './TabsExample';
+import BaseScrollTab2 from './BaseScrollTab2';
 export const config = {
   TabsExample: {
     title: 'tabs',
@@ -13,7 +14,8 @@ export const config = {
       BaseScrollTab: BaseScrollTab,
       ScrollableTabsExample: ScrollableTabsExample,
       OverlayExample: OverlayExample,
-      FacebookExample: FacebookExample
+      FacebookExample: FacebookExample,
+      BaseScrollTab2
     }
   }
 };

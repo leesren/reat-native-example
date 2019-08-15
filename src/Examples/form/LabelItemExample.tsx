@@ -7,7 +7,9 @@ import {
   IBText,
   IBTextWithUnit,
   TitleTips,
-  InfoItem
+  InfoItem,
+  Img,
+  InfoItemIcon
 } from '../../widgets';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 type State = {};
@@ -134,6 +136,47 @@ class Example extends React.Component<any, State> {
               label="担任:"
               value="董事长"
             />
+          </View>
+        </List.Section>
+        <List.Section>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            信息标签-左边-图标
+          </List.Subheader>
+          <View style={{ paddingHorizontal: 15 }}>
+            <InfoItemIcon
+              containerStyle={{ alignItems: 'center', paddingVertical: 4 }}
+              LabelIcon={
+                <Icon
+                  style={{ marginTop: 3 }}
+                  size={16}
+                  name="format-shapes"
+                  color={'#D8B66A'}
+                />
+              }
+              value="董事长"
+            />
+            <InfoItemIcon
+              containerStyle={{ alignItems: 'center', paddingVertical: 4 }}
+              LabelIcon={
+                <Img
+                  style={{ marginTop: 3 }}
+                  src={'https://pic4.zhimg.com/da8e974dc_xs.jpg'}
+                  width={16}
+                />
+              }
+              value="已停留30分钟"
+            />
+            <InfoItemIcon
+              LabelIcon={
+                <Img
+                  style={{ marginTop: 3 }}
+                  src={'https://pic4.zhimg.com/da8e974dc_xs.jpg'}
+                  width={16}
+                />
+              }
+              value="TCL新技术（惠州）有限公司2019年IPO保限公司2019年IPO"
+            />
+            <InfoItemIcon label="项目" value="2019年" />
           </View>
         </List.Section>
         <List.Section>
