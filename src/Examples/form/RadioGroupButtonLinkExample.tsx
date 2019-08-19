@@ -36,8 +36,12 @@ class Example extends React.Component<any, State> {
     return (
       <ScrollView style={[styles.container]}>
         <List.Section>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            复合类型：单选&多选&动态修改数据
+          </List.Subheader>
           <View style={{ paddingHorizontal: 15 }}>
             {list.map((item, index) => {
+              const ViewCom: any = item.multiple ? CheckBoxHoc : RadioGroupHoc;
               return (
                 <View key={index} style={{}}>
                   <Subheader>{item.title}</Subheader>
@@ -49,18 +53,29 @@ class Example extends React.Component<any, State> {
                       }
                     ]}
                   >
-                    <RadioGroupHoc
+                    <ViewCom
                       list={item.list}
                       value={item.value}
                       valueKey="value"
                       onChange={(element, subElementIndex) => {
-                        this.state.list[index].value = element.value;
+                        if (item.multiple) {
+                          this.state.list[index].value = element;
+                        } else {
+                          this.state.list[index].value = element.value;
+                        }
+
                         if (index === 0 && element.value === 2) {
                           this.setState(
                             {
                               list: originData.slice(0).map((el, i) => {
                                 let current = this.state.list[i];
                                 let value = current.value; // 缓存选择的 value
+                                if (el.multiple) {
+                                  return {
+                                    ...el,
+                                    value: value
+                                  };
+                                }
                                 let resetList = el.list;
                                 if (i === 2) {
                                   resetList = newList.slice(0);
@@ -89,6 +104,12 @@ class Example extends React.Component<any, State> {
                               list: originData.slice(0).map((el, i) => {
                                 let current = this.state.list[i];
                                 let value = current.value; // 缓存选择的 value
+                                if (el.multiple) {
+                                  return {
+                                    ...el,
+                                    value: value
+                                  };
+                                }
                                 return {
                                   title: el.title,
                                   value: el.list.find(
@@ -136,50 +157,6 @@ class Example extends React.Component<any, State> {
                 </View>
               );
             })}
-
-            <View style={{}}>
-              <Subheader>项目-多选</Subheader>
-              <View
-                style={[
-                  {
-                    flexDirection: 'row',
-                    flexWrap: 'wrap'
-                  }
-                ]}
-              >
-                <CheckBoxHoc
-                  selectedList={this.state.selectedProjects}
-                  keyValue="value"
-                  list={projectList.list}
-                  onChange={v => {
-                    console.log('item change', v);
-                    this.setState({
-                      selectedProjects: v
-                    });
-                  }}
-                  renderItem={props => {
-                    let { index, ...restProp } = props;
-                    return (
-                      <Tag
-                        key={props.index}
-                        shape={false}
-                        style={{ marginRight: 10, marginBottom: 10 }}
-                        bgColor={props.checked ? '#F7F0E1' : '#F6F6F6'}
-                        color={props.checked ? '#D8B66A' : '#595B5F'}
-                        fontSize={13}
-                        onPress={props.onPress as any}
-                        warpStyle={{
-                          paddingHorizontal: 10,
-                          paddingVertical: 8
-                        }}
-                      >
-                        {props.item.label}
-                      </Tag>
-                    );
-                  }}
-                />
-              </View>
-            </View>
           </View>
         </List.Section>
         <View style={{ marginTop: 30 }}>
@@ -310,24 +287,25 @@ const originData = [
         value: '3'
       }
     ]
+  },
+  {
+    title: '项目-多选',
+    value: [],
+    multiple: true,
+    list: [
+      { label: '全部', value: '' },
+      { label: '尽职调查', value: '1' },
+      { label: '监管反馈', value: '2' },
+      { label: '持续督导', value: '3' },
+      {
+        label: '3M上海研磨产',
+        value: '4',
+        dtjcount: '483'
+      }
+    ]
   }
 ];
-const projectList = {
-  title: '项目',
-  value: [],
-  multiple: true,
-  list: [
-    { label: '全部', value: '' },
-    { label: '尽职调查', value: '1' },
-    { label: '监管反馈', value: '2' },
-    { label: '持续督导', value: '3' },
-    {
-      label: '3M上海研磨产品制造有限公司2019年IPO副主承销/分销564564321',
-      value: '78043d56-0060-4f12-bb38-44d3f2c78780',
-      dtjcount: '483'
-    }
-  ]
-};
+
 const newList = [
   {
     name: '全部',

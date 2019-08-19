@@ -1,10 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  TextStyle,
-  View,
-  ViewStyle,
-  TouchableWithoutFeedback
-} from 'react-native';
+import { View, ViewStyle, TouchableWithoutFeedback } from 'react-native';
 import { IBText, Line } from '../base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 /**

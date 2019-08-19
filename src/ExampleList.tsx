@@ -39,7 +39,7 @@ type Props = {
   theme: Theme;
   navigation: any;
 };
-export const initialRouteName = 'RadioGroupButtonLinkExample';
+export const initialRouteName = 'TableDemo';
 export const examples1 = {
   form: {
     title: '表单',

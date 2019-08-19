@@ -47,7 +47,7 @@ class CheckboxGroupExample extends React.Component<any, State> {
               <ScrollView style={{ flex: 1 }}>
                 <CheckBoxHoc
                   disabled={props.disabledAll}
-                  selectedList={this.state.selectedList}
+                  value={this.state.selectedList}
                   keyValue="value"
                   list={props.list}
                   onChange={v => {

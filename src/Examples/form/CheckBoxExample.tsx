@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { IconButton, Colors, withTheme, Theme, List } from 'react-native-paper';
-import { checkBoxImgs, CheckboxItem } from '../../widgets';
+import {
+  checkBoxImgs,
+  CheckboxItem,
+  CheckBoxGroupHoc,
+  CheckBoxHoc
+} from '../../widgets';
 
 type State = {};
 
@@ -11,7 +16,34 @@ class Example extends React.Component<any, State> {
     checked1: false,
     checked2: true,
     checked3: true,
-    checked4: true
+    checked4: true,
+    selectedList: [],
+    list: [
+      {
+        name: '股权持续督导',
+        survType: 1,
+        label: '股权持续督导',
+        value: 1
+      },
+      {
+        name: '债券存续期',
+        survType: 2,
+        label: '债券存续期',
+        value: 2
+      },
+      {
+        name: 'ABS存续期',
+        survType: 3,
+        label: 'ABS存续期',
+        value: 3
+      },
+      {
+        name: '新三板持续督导',
+        survType: 4,
+        label: '新三板持续督导',
+        value: 4
+      }
+    ]
   };
   render() {
     const { colors } = this.props.theme;
@@ -155,6 +187,33 @@ class Example extends React.Component<any, State> {
               );
             }}
           />
+        </List.Section>
+        <List.Section>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            checkboxgroup
+          </List.Subheader>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <CheckBoxHoc
+              value={this.state.selectedList}
+              list={this.state.list}
+              onChange={selectedList => {
+                console.log('selectedList', selectedList);
+              }}
+              renderItem={props => {
+                return (
+                  <CheckboxItem
+                    key={props.index}
+                    iconContainer={{ paddingRight: 0, paddingLeft: 6 }}
+                    label={props.item.label}
+                    textContainer={{ flex: 0 }}
+                    style={{ paddingVertical: 10 }}
+                    checked={props.checked}
+                    onPress={props.onPress}
+                  />
+                );
+              }}
+            />
+          </View>
         </List.Section>
       </View>
     );

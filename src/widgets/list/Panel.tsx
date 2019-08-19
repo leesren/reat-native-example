@@ -4,13 +4,11 @@ import {
   View,
   ViewStyle,
   TouchableWithoutFeedback,
-  TouchableHighlight,
-  Dimensions,
   Text,
   ImageStyle
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { IBText, Line, Img } from '../base';
+import { Img } from '../base';
 interface Props {
   title: string;
   showMore?: boolean;

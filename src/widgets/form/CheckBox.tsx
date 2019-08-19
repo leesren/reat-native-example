@@ -11,8 +11,8 @@ import { IBText, Img } from '../base';
 type ItemProp = { label: string; value: any; checked?: boolean };
 type Props = {
   disabled?: boolean;
-  list: Array<ItemProp>;
-  selectedList?: Array<ItemProp>;
+  list: Array<ItemProp | any>;
+  value?: Array<ItemProp | any>;
   onPressItem?: (item, index) => void;
   onChange?: (list: ItemProp[]) => void;
   selectedAll?: boolean;
@@ -26,8 +26,28 @@ type ItemComProp = {
   item: any;
   onPress: (item, index) => void;
 };
-
-export class CheckBoxHoc extends Component<Props, any> {
+/**
+ *
+ * selected item 比较 list 的 compareItem
+ * @param {*} { item, keyValue, compareItem }
+ * @returns
+ */
+function compareValue({ item, keyValue, compareItem }) {
+  if (Object.prototype.toString.call(item) === '[object Object]') {
+    return item[keyValue] === compareItem[keyValue];
+  } else {
+    if (Object.prototype.toString.call(compareItem) === '[object Object]') {
+      return item === compareItem[keyValue];
+    } else {
+      return item === compareItem;
+    }
+  }
+}
+type State = {
+  list: Array<ItemProp | any>;
+  value: Array<ItemProp | any>;
+};
+export class CheckBoxHoc extends Component<Props, State> {
   static defaultProps = {
     disabled: false,
     keyValue: 'value',
@@ -37,60 +57,74 @@ export class CheckBoxHoc extends Component<Props, any> {
     super(props);
     this.state = {
       list: props.list,
-      selectedList: props.selectedAll ? props.list : []
+      value: props.value ? props.value : props.selectedAll ? props.list : []
     };
   }
-
-  handlePress = (el, index) => {
-    let { selectedList } = this.state;
-    const { onChange, onPressItem, keyValue } = this.props;
-
-    if (el.disabled) {
-      onPressItem && onPressItem(el, index);
-      return;
-    }
-    let itemIndex = selectedList.findIndex(
-      item => item[keyValue] === el[keyValue]
-    );
-    if (itemIndex !== -1) {
-      selectedList.splice(itemIndex, 1);
-    } else {
-      selectedList.push(el);
-    }
-    this.setState({
-      selectedList: [...selectedList]
-    });
-    onChange && onChange(selectedList);
-  };
-  handleSelectAdd = (all = false) => {
-    const { onChange, disabled } = this.props;
-    if (disabled) return;
-    let t = all ? this.state.list.slice(0) : [];
-    this.setState({
-      selectedList: t
-    });
-    onChange && onChange(t);
-  };
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.list, this.props.list)) {
       this.setState({
         list: nextProps.list
       });
     }
-    if (!isEqual(nextProps.selectedList, this.props.selectedList)) {
+    if (
+      nextProps.value instanceof Array &&
+      !isEqual(nextProps.value, this.props.value)
+    ) {
       this.setState({
-        selectedList: nextProps.selectedList
+        value: nextProps.value
       });
     }
     if (nextProps.selectedAll !== this.props.selectedAll) {
       this.handleSelectAdd(nextProps.selectedAll);
     }
   }
+
+  handlePress = (el, index) => {
+    let { value } = this.state;
+    const { onChange, onPressItem, keyValue } = this.props;
+
+    if (el.disabled) {
+      onPressItem && onPressItem(el, index);
+      return;
+    }
+    let itemIndex = value.findIndex(item =>
+      compareValue({ item, compareItem: el, keyValue })
+    );
+    if (itemIndex !== -1) {
+      value.splice(itemIndex, 1);
+    } else {
+      value.push(el);
+    }
+    this.setState(
+      {
+        value: [...value]
+      },
+      () => {
+        onChange && onChange(value);
+      }
+    );
+  };
+  handleSelectAdd = (all = false) => {
+    const { onChange, disabled } = this.props;
+    if (disabled) return;
+    let t = all ? this.state.list.slice(0) : [];
+    this.setState(
+      {
+        value: t
+      },
+      () => {
+        onChange && onChange(t);
+      }
+    );
+  };
+
   render() {
-    let { list, selectedList } = this.state;
+    let { list, value } = this.state;
     const { disabled, keyValue, renderItem } = this.props;
     return list.map((el, index) => {
-      let checked = selectedList.find(item => item[keyValue] === el[keyValue]);
+      let checked = value.find(item =>
+        compareValue({ item, compareItem: el, keyValue })
+      );
       let _dis = disabled ? true : el.disabled;
       return renderItem({
         disabled: _dis,
@@ -106,38 +140,47 @@ export class CheckBoxHoc extends Component<Props, any> {
 }
 interface CheckBoxAllHocProps {
   disabledAll?: boolean;
-  selectedList?: Array<any>;
+  value?: Array<any>;
   checkedAll?: boolean;
   render?: Function;
   list: Array<any>;
   onChange?: (list: Array<any>) => void;
   children: (props: {
     disabledAll: boolean;
-    selectedList: Array<any>;
+    value: Array<any>;
     checkedAll: boolean;
     list: Array<any>;
     handleDisabledAll: (props: any) => void;
     handleCheckedAll: (props: any) => void;
   }) => React.ReactNode;
 }
+type CheckBoxAllHocState = {
+  disabledAll?: boolean;
+  value?: Array<any>;
+  checkedAll?: boolean;
+};
 
 // 增加 全选 取消，不可选，可选功能
-export class CheckBoxGroupHoc extends Component<CheckBoxAllHocProps, any> {
+export class CheckBoxGroupHoc extends Component<
+  CheckBoxAllHocProps,
+  CheckBoxAllHocState
+> {
   static defaultProps = {
     checkedAll: false,
     disabledAll: false,
-    selectedList: []
+    value: []
   };
   constructor(props: CheckBoxAllHocProps) {
     super(props);
     this.state = {
       checkedAll: props.checkedAll,
-      disabledAll: props.disabledAll
+      disabledAll: props.disabledAll,
+      value: props.value
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.selectedList, this.props.selectedList)) {
-      this.setState({ selectedList: nextProps.selectedList });
+    if (!isEqual(nextProps.value, this.props.value)) {
+      this.setState({ value: nextProps.value });
     }
   }
   handleCheckedAll = () => {
@@ -146,11 +189,11 @@ export class CheckBoxGroupHoc extends Component<CheckBoxAllHocProps, any> {
     const { list, onChange } = this.props;
     this.setState(
       {
-        selectedList: !checkedAll ? [...list] : [],
+        value: !checkedAll ? [...list] : [],
         checkedAll: !checkedAll
       },
       () => {
-        onChange && onChange(this.state.selectedList);
+        onChange && onChange(this.state.value);
       }
     );
   };
@@ -160,21 +203,21 @@ export class CheckBoxGroupHoc extends Component<CheckBoxAllHocProps, any> {
     this.setState(
       {
         disabledAll: !disabledAll,
-        selectedList: []
+        value: []
       },
       () => {
-        onChange && onChange(this.state.selectedList);
+        onChange && onChange(this.state.value);
       }
     );
   };
   render() {
-    let { checkedAll, disabledAll, selectedList } = this.state;
+    let { checkedAll, disabledAll, value } = this.state;
     const { render, children, list } = this.props;
     const params = {
       checkedAll,
       disabledAll,
       list,
-      selectedList: selectedList,
+      value: value,
       handleDisabledAll: this.handleDisabledAll,
       handleCheckedAll: this.handleCheckedAll
     };
@@ -200,18 +243,7 @@ type CheckboxItemProp = {
   textStyle?: TextStyle;
   checkBoxImg?: Partial<typeof checkBoxImgs>;
 };
-export const checkBoxImgs = {
-  disabled: <Img width={18} src={require('../img/radio-disabled.png')} />,
-  disabledChecked: (
-    <Img width={18} src={require('../img/radio-checked-disabled.png')} />
-  ),
-  checked: <Img width={18} src={require('../img/radio-checked.png')} />,
-  radioChecked: <Img width={18} src={require('../img/radio-selected.png')} />,
-  radioCheckedDisable: (
-    <Img width={18} src={require('../img/radio-selected-disable.png')} />
-  ),
-  unchecked: <Img width={18} src={require('../img/radio-unchecked.png')} />
-};
+
 export class CheckboxItem extends React.PureComponent<CheckboxItemProp, any> {
   checkBoxIms = checkBoxImgs;
   constructor(props: CheckboxItemProp) {
@@ -278,3 +310,16 @@ export class CheckboxItem extends React.PureComponent<CheckboxItemProp, any> {
     );
   }
 }
+
+export const checkBoxImgs = {
+  disabled: <Img width={18} src={require('../img/radio-disabled.png')} />,
+  disabledChecked: (
+    <Img width={18} src={require('../img/radio-checked-disabled.png')} />
+  ),
+  checked: <Img width={18} src={require('../img/radio-checked.png')} />,
+  radioChecked: <Img width={18} src={require('../img/radio-selected.png')} />,
+  radioCheckedDisable: (
+    <Img width={18} src={require('../img/radio-selected-disable.png')} />
+  ),
+  unchecked: <Img width={18} src={require('../img/radio-unchecked.png')} />
+};

@@ -7,6 +7,10 @@ import ListExample from './ListExample';
 import PanelExample from './PanelExample';
 import TagExample from './TagExample';
 import RadioGroupButtonLinkExample from './RadioGroupButtonLinkExample';
+import TimelineBaseDemo from './TimelineBaseDemo';
+import HocDemo from './HocDemo';
+import ListExample2 from './ListExample2';
+import TableDemo from './TableDemo';
 export const config = {
   CheckBoxExample: CheckBoxExample,
   CheckboxGroupExample: CheckboxGroupExample,
@@ -16,5 +20,9 @@ export const config = {
   ListExample: ListExample,
   PanelExample: PanelExample,
   TagExample: TagExample,
-  RadioGroupButtonLinkExample: RadioGroupButtonLinkExample
+  RadioGroupButtonLinkExample: RadioGroupButtonLinkExample,
+  TimelineBaseDemo: TimelineBaseDemo,
+  HocDemo: HocDemo,
+  ListExample2: ListExample2,
+  TableDemo: TableDemo
 };
