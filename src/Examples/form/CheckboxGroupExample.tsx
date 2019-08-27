@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-const data = [
+export const data = [
   {
     label: '3M上海研磨产品制造有限公司2019年IPO副主承销/分销564564321',
     value: '78043d56-0060-4f12-bb38-44d3f2c78780',

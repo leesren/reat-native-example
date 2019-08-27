@@ -34,17 +34,26 @@ import ToggleButtonExample from './Examples/ToggleButtonExample';
 import TouchableRippleExample from './Examples/TouchableRippleExample';
 import { config as TabsExampleConfig } from './Examples/scroll-tabs';
 import { config as FormConfig } from './Examples/form';
+import { config as DraftConfig } from './Examples/draft';
 
 type Props = {
   theme: Theme;
   navigation: any;
 };
-export const initialRouteName = 'TableDemo';
+export const initialRouteName = '';
+// export const initialRouteName = '';
 export const examples1 = {
   form: {
     title: '表单',
     data: {
       ...FormConfig
+    },
+    icon: 'menu'
+  },
+  draft: {
+    title: '底稿',
+    data: {
+      ...DraftConfig
     },
     icon: 'menu'
   },

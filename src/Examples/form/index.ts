@@ -11,6 +11,8 @@ import TimelineBaseDemo from './TimelineBaseDemo';
 import HocDemo from './HocDemo';
 import ListExample2 from './ListExample2';
 import TableDemo from './TableDemo';
+import ModalDemo from './ModalDemo';
+import ListHeaderFilterTabs from './ListHeaderFilterTabs';
 export const config = {
   CheckBoxExample: CheckBoxExample,
   CheckboxGroupExample: CheckboxGroupExample,
@@ -18,11 +20,13 @@ export const config = {
   RadioGroupButtonExample: RadioGroupButtonExample,
   LabelItemExample: LabelItemExample,
   ListExample: ListExample,
+  ListExample2: ListExample2,
   PanelExample: PanelExample,
   TagExample: TagExample,
   RadioGroupButtonLinkExample: RadioGroupButtonLinkExample,
   TimelineBaseDemo: TimelineBaseDemo,
   HocDemo: HocDemo,
-  ListExample2: ListExample2,
-  TableDemo: TableDemo
+  ModalDemo: ModalDemo,
+  TableDemo: TableDemo,
+  ListHeaderFilterTabs: ListHeaderFilterTabs
 };

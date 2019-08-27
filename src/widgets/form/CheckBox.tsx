@@ -235,7 +235,7 @@ export class CheckBoxGroupHoc extends Component<
 type CheckboxItemProp = {
   disabled?: boolean;
   checked?: boolean;
-  onPress?: Function;
+  onPress?: any;
   label?: String;
   style?: ViewStyle;
   textContainer?: ViewStyle;

@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
  */
 type Props = {
   style?: ViewStyle;
+  wrapStyle?: ViewStyle;
   showLine?: boolean;
   onPress?: Function;
   title: string;
@@ -17,6 +18,7 @@ type Props = {
   note?: string;
   avatar?: any;
   avatarStyle?: ViewStyle;
+  wrapContainerStyle?: ViewStyle;
   titleStyle?: TextStyle;
   noteStyle?: TextStyle;
   itemIcon?: React.ReactNode;
@@ -38,7 +40,9 @@ export class ListItemAvatar extends PureComponent<Props, any> {
       itemIcon,
       avatarStyle,
       noteStyle,
-      note
+      note,
+      wrapStyle,
+      wrapContainerStyle
     } = this.props;
     return (
       <View style={[style]}>
@@ -56,16 +60,20 @@ export class ListItemAvatar extends PureComponent<Props, any> {
                   justifyContent: 'space-between',
                   paddingVertical: 10,
                   paddingHorizontal: 15
-                }
+                },
+                wrapStyle
               ]}
             >
               <View
-                style={{
-                  flex: 1,
-                  paddingRight: 10,
-                  flexDirection: 'row',
-                  alignItems: 'center'
-                }}
+                style={[
+                  {
+                    flex: 1,
+                    paddingRight: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center'
+                  },
+                  wrapContainerStyle
+                ]}
               >
                 <View style={{ marginRight: 10 }}>
                   {avatar ? (
@@ -91,7 +99,7 @@ export class ListItemAvatar extends PureComponent<Props, any> {
                     </View>
                   )}
                 </View>
-                <View style={{}}>
+                <View style={{ flex: 1 }}>
                   <IBText
                     size={16}
                     color={'#303238'}

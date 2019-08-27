@@ -18,6 +18,7 @@ type Props = {
   description?: string;
   descriptionStyle?: TextStyle;
   titleStyle?: TextStyle;
+  itemIcon?: React.ReactNode;
 };
 export class ListItemBase extends PureComponent<Props, any> {
   constructor(props: any) {
@@ -34,7 +35,8 @@ export class ListItemBase extends PureComponent<Props, any> {
       showLine,
       description,
       descriptionStyle,
-      showArrow = true
+      showArrow = true,
+      itemIcon
     } = this.props;
     return (
       <View style={[style]}>
@@ -86,9 +88,11 @@ export class ListItemBase extends PureComponent<Props, any> {
                     {note}
                   </IBText>
                 )}
-                {showArrow && (
+                {itemIcon ? (
+                  itemIcon
+                ) : showArrow ? (
                   <Icon name="chevron-right" size={18} color="#CCCCCC" />
-                )}
+                ) : null}
               </View>
             </View>
             {showLine && <Line style={{ marginLeft: 15 }} />}

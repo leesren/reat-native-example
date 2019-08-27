@@ -32,7 +32,7 @@ class Example extends React.Component<any, State> {
     return (
       <View style={[styles.container]}>
         <ScrollableTabView
-          initialPage={3}
+          initialPage={0}
           renderTabBar={props => (
             <ScrollableTabBarBase
               {...props}
