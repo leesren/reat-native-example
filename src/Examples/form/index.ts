@@ -13,6 +13,7 @@ import ListExample2 from './ListExample2';
 import TableDemo from './TableDemo';
 import ModalDemo from './ModalDemo';
 import ListHeaderFilterTabs from './ListHeaderFilterTabs';
+import TabSelectDemo from './TabSelectDemo';
 export const config = {
   CheckBoxExample: CheckBoxExample,
   CheckboxGroupExample: CheckboxGroupExample,
@@ -28,5 +29,6 @@ export const config = {
   HocDemo: HocDemo,
   ModalDemo: ModalDemo,
   TableDemo: TableDemo,
-  ListHeaderFilterTabs: ListHeaderFilterTabs
+  ListHeaderFilterTabs: ListHeaderFilterTabs,
+  TabSelectDemo
 };
