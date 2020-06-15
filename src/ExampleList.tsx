@@ -1,64 +1,64 @@
-import * as React from 'react';
-import { FlatList, View, SectionList, Text, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { List, Divider, withTheme, Theme } from 'react-native-paper';
-import ActivityIndicatorExample from './Examples/ActivityIndicatorExample';
+import * as React from "react";
+import { FlatList, View, SectionList, Text, ScrollView } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { List, Divider, withTheme, Theme } from "react-native-paper";
+import ActivityIndicatorExample from "./Examples/ActivityIndicatorExample";
 
-import AppbarExample from './Examples/AppbarExample';
-import AvatarExample from './Examples/AvatarExample';
-import BadgeExample from './Examples/BadgeExample';
-import BannerExample from './Examples/BannerExample';
-import BottomNavigationExample from './Examples/BottomNavigationExample';
-import ButtonExample from './Examples/ButtonExample';
-import CardExample from './Examples/CardExample';
-import CheckboxExample from './Examples/CheckboxExample';
-import ChipExample from './Examples/ChipExample';
-import DataTableExample from './Examples/DataTableExample';
-import DialogExample from './Examples/DialogExample';
-import DividerExample from './Examples/DividerExample';
-import FABExample from './Examples/FABExample';
-import IconButtonExample from './Examples/IconButtonExample';
-import ListAccordionExample from './Examples/ListAccordionExample';
-import ListSectionExample from './Examples/ListSectionExample';
-import MenuExample from './Examples/MenuExample';
-import ProgressBarExample from './Examples/ProgressBarExample';
-import RadioButtonExample from './Examples/RadioButtonExample';
-import RadioButtonGroupExample from './Examples/RadioButtonGroupExample';
-import SearchbarExample from './Examples/SearchbarExample';
-import SnackbarExample from './Examples/SnackbarExample';
-import SurfaceExample from './Examples/SurfaceExample';
-import SwitchExample from './Examples/SwitchExample';
-import TextExample from './Examples/TextExample';
-import TextInputExample from './Examples/TextInputExample';
-import ToggleButtonExample from './Examples/ToggleButtonExample';
-import TouchableRippleExample from './Examples/TouchableRippleExample';
-import { config as TabsExampleConfig } from './Examples/scroll-tabs';
-import { config as FormConfig } from './Examples/form';
-import { config as DraftConfig } from './Examples/draft';
+import AppbarExample from "./Examples/AppbarExample";
+import AvatarExample from "./Examples/AvatarExample";
+import BadgeExample from "./Examples/BadgeExample";
+import BannerExample from "./Examples/BannerExample";
+import BottomNavigationExample from "./Examples/BottomNavigationExample";
+import ButtonExample from "./Examples/ButtonExample";
+import CardExample from "./Examples/CardExample";
+import CheckboxExample from "./Examples/CheckboxExample";
+import ChipExample from "./Examples/ChipExample";
+import DataTableExample from "./Examples/DataTableExample";
+import DialogExample from "./Examples/DialogExample";
+import DividerExample from "./Examples/DividerExample";
+import FABExample from "./Examples/FABExample";
+import IconButtonExample from "./Examples/IconButtonExample";
+import ListAccordionExample from "./Examples/ListAccordionExample";
+import ListSectionExample from "./Examples/ListSectionExample";
+import MenuExample from "./Examples/MenuExample";
+import ProgressBarExample from "./Examples/ProgressBarExample";
+import RadioButtonExample from "./Examples/RadioButtonExample";
+import RadioButtonGroupExample from "./Examples/RadioButtonGroupExample";
+import SearchbarExample from "./Examples/SearchbarExample";
+import SnackbarExample from "./Examples/SnackbarExample";
+import SurfaceExample from "./Examples/SurfaceExample";
+import SwitchExample from "./Examples/SwitchExample";
+import TextExample from "./Examples/TextExample";
+import TextInputExample from "./Examples/TextInputExample";
+import ToggleButtonExample from "./Examples/ToggleButtonExample";
+import TouchableRippleExample from "./Examples/TouchableRippleExample";
+import { config as TabsExampleConfig } from "./Examples/scroll-tabs";
+import { config as FormConfig } from "./Examples/form";
+import { config as DraftConfig } from "./Examples/draft";
 
 type Props = {
   theme: Theme;
   navigation: any;
 };
-export let initialRouteName = '';
-initialRouteName = 'TabSelectDemo';
+export let initialRouteName = "";
+// initialRouteName = "AddressEdit";
 export const examples1 = {
   form: {
-    title: '表单',
+    title: "表单",
     data: {
-      ...FormConfig
+      ...FormConfig,
     },
-    icon: 'menu'
+    icon: "menu",
   },
   draft: {
-    title: '底稿',
+    title: "底稿",
     data: {
-      ...DraftConfig
+      ...DraftConfig,
     },
-    icon: 'menu'
+    icon: "menu",
   },
   base: {
-    title: '基础组件',
+    title: "基础组件",
     data: {
       activityIndicator: ActivityIndicatorExample,
       ...TabsExampleConfig,
@@ -89,43 +89,43 @@ export const examples1 = {
       text: TextExample,
       textInput: TextInputExample,
       toggleButton: ToggleButtonExample,
-      touchableRipple: TouchableRippleExample
+      touchableRipple: TouchableRippleExample,
     },
-    icon: 'menu'
+    icon: "menu",
   },
   options: {
-    title: '操作反馈',
+    title: "操作反馈",
     data: {},
-    icon: 'menu'
+    icon: "menu",
   },
   nav: {
-    title: '导航相关',
+    title: "导航相关",
     data: {},
-    icon: 'menu'
+    icon: "menu",
   },
   search: {
-    title: '搜索相关',
+    title: "搜索相关",
     data: {},
-    icon: 'menu'
+    icon: "menu",
   },
   layer: {
-    title: '层级相关',
+    title: "层级相关",
     data: {},
-    icon: 'menu'
-  }
+    icon: "menu",
+  },
 };
 
 export const examples = Object.keys(examples1).reduce((acc, current) => {
   let scene = examples1[current];
   let subScene = {};
-  Object.keys(scene.data).map(el => {
+  Object.keys(scene.data).map((el) => {
     if (scene.data[el] && !scene.data[el].page) {
       subScene = { ...subScene, [el]: scene.data[el] };
     } else {
       subScene = {
         ...subScene,
         [el]: scene.data[el].page,
-        ...scene.data[el].data
+        ...scene.data[el].data,
       };
     }
   });
@@ -134,13 +134,13 @@ export const examples = Object.keys(examples1).reduce((acc, current) => {
 
 class ExampleList extends React.Component<Props> {
   static navigationOptions = {
-    title: 'Examples'
+    title: "Examples",
   };
   state = {
-    expanded: -1
+    expanded: -1,
   };
 
-  _handlePress = i => {
+  _handlePress = (i) => {
     this.setState({ expanded: i });
   };
 
@@ -180,17 +180,17 @@ class ExampleList extends React.Component<Props> {
   render() {
     const {
       theme: {
-        colors: { background }
-      }
+        colors: { background },
+      },
     } = this.props;
 
     return (
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 15,
-          paddingVertical: 15
+          paddingVertical: 15,
         }}
-        style={{ flex: 1, backgroundColor: '#f2f2f2' }}
+        style={{ flex: 1, backgroundColor: "#f2f2f2" }}
       >
         {Object.keys(examples1).map((el, index) => {
           return this._renderItem2(examples1[el], index);

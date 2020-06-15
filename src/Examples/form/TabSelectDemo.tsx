@@ -15,11 +15,12 @@ import {
     UIManager
 } from "react-native";
 import { withTheme, Switch } from "react-native-paper";
-import { Table, CheckboxItem, checkBoxImgs, IBText } from "../../widgets";
+import { Table, CheckboxItem, checkBoxImgs, IBText, Line } from "../../widgets";
 import { ListPanelHeader } from "../components";
 // import Popover from '../../widgets/base/Popover';
 // import Popover from 'react-native-popover-view';
-import { Popover } from 'react-native-modal-popover';
+import { Popover } from "react-native-modal-popover";
+import { dataBook } from "./mock-data/bk";
 type State = {};
 class Example extends React.Component<any, State> {
     static title = "TabSelectDemo";
@@ -32,18 +33,16 @@ class Example extends React.Component<any, State> {
             {
                 title: "2020年01月"
             },
-            { title: "1-过会待发行日历" },
-            { title: "客户" }
+            { title: "1-过会待发行日历" }
         ]
     };
     ref: ScrollView;
     closePopover = () => {
         this.setState({ isVisible: false });
-    }
+    };
     render() {
         let { showBorder } = this.state;
         return (
-
             <View
                 style={{
                     flex: 1,
@@ -55,6 +54,9 @@ class Example extends React.Component<any, State> {
                 <CustomTabHeader
                     onPress={item => {
                         console.log(item);
+                    }}
+                    renderCustomItem={() => {
+                        return <TitleTips />;
                     }}
                     bodyStyle={{ marginTop: 52 }}
                     renderTabContent={(index, props) => {
@@ -86,52 +88,86 @@ class Example extends React.Component<any, State> {
                     }}
                     list={this.state.list}
                 >
-                    <ScrollView ref={ref => this.ref = ref} style={[styles.container, { backgroundColor: "#fff" }]}>
-
-                        {
-                            Array(4).fill(0).map((item, i) => {
-                                return <DayItem fromRect={(target) => {
-                                    this.setState({
+                    <ScrollView
+                        ref={ref => (this.ref = ref)}
+                        style={[styles.container, { backgroundColor: "#fff" }]}
+                    >
+                        <DayItem
+                            fromRect={target => {
+                                this.setState(
+                                    {
                                         fromRect: target
-                                    }, () => {
+                                    },
+                                    () => {
                                         this.setState({
-                                            isVisible: true,
-                                        })
-                                    })
-                                }} key={i} getHeaderPosition={(layout) => {
-                                    this.headersPosition[i] = layout;
-                                }} />
-                            })
-                        }
-                        <ListPanelHeader
-                            title={"table base —— " + (showBorder ? "线条" : "无线条")}
-                            footer={
-                                <Switch
-                                    value={showBorder}
-                                    onValueChange={() => {
-                                        this.setState({ showBorder: !showBorder });
-                                    }}
-                                />
-                            }
-                        >
-                            <TouchableOpacity
-                                onPress={() => {
-                                    // alert("...");
-                                    this.headersPosition[1] && this.ref.scrollTo({ y: this.headersPosition[1].y, animated: true })
-                                }}
-                            >
-                                <IBText size={15} lineHeight={19} color={"#333"}>
-                                    店家我
-                </IBText>
-                            </TouchableOpacity>
-
-                        </ListPanelHeader>
+                                            isVisible: true
+                                        });
+                                    }
+                                );
+                            }}
+                            list={dataBook}
+                            getHeaderPosition={layout => {
+                                // this.headersPosition[i] = layout;
+                            }}
+                        />
                         <Popover
                             visible={this.state.isVisible}
-                            fromRect={this.state.fromRect} onClose={this.closePopover}>
-                            <View style={{ height: 280, width: 350 }}>
-
-                                <Text>I'm the content of this popover!</Text>
+                            fromRect={this.state.fromRect}
+                            onClose={this.closePopover}
+                        >
+                            <View
+                                style={{
+                                    height: 280,
+                                    width: 350,
+                                    padding: 10,
+                                    borderRadius: 4
+                                }}
+                            >
+                                <View style={{ flex: 1 }}>
+                                    <ScrollView style={{ flex: 1 }}>
+                                        <IBText size={14} lineHeight={17} color={"#FF3355"}>
+                                            20招商蛇口MTN001
+                    </IBText>
+                                        <IBText size={12} lineHeight={17} color={"#807375"}>
+                                            杭州银行股份有限公司
+                    </IBText>
+                                        <IBText size={12} lineHeight={17} color={"#807375"}>
+                                            基础资产：个人住房抵押贷款
+                    </IBText>
+                                        <IBText size={12} lineHeight={17} color={"#807375"}>
+                                            -->优先A-1档，2.17亿，0.89年，(2.5%-3.7%)，AAA/AA+
+                    </IBText>
+                                        <IBText size={12} lineHeight={17} color={"#807375"}>
+                                            -->优先A-2档，18.95亿，3.81年，(2.5%-3.7%)，AAA/AAA
+                    </IBText>
+                                        <IBText size={12} lineHeight={17} color={"#807375"}>
+                                            【簿记】招商银行
+                    </IBText>
+                                        <IBText size={12} lineHeight={17} color={"#807375"}>
+                                            【联主等】平安证券、华泰证券
+                    </IBText>
+                                    </ScrollView>
+                                </View>
+                                <Line />
+                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <TouchableOpacity
+                                        style={{ flex: 1, paddingTop: 10, paddingBottom: 5 }}
+                                    >
+                                        <IBText center size={14} lineHeight={20} color={"#D8B66A"}>
+                                            备用模式
+                    </IBText>
+                                    </TouchableOpacity>
+                                    <View
+                                        style={{ height: 10, width: 1, backgroundColor: "#ebebeb" }}
+                                    ></View>
+                                    <TouchableOpacity
+                                        style={{ flex: 1, paddingTop: 10, paddingBottom: 5 }}
+                                    >
+                                        <IBText center size={14} lineHeight={20} color={"#D8B66A"}>
+                                            查看项目详情 >
+                    </IBText>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </Popover>
                     </ScrollView>
@@ -464,155 +500,244 @@ class CheckBoxItem extends React.Component<any, any> {
     }
 }
 
-class DayItem extends React.PureComponent<any, any> {
-    color = {
-
-    }
+export class DayItem extends React.PureComponent<any, any> {
+    color = {};
     constructor(props: any) {
         super(props);
     }
 
     componentWillMount() { }
     render() {
-        const { getHeaderPosition, fromRect } = this.props;
+        const { getHeaderPosition, fromRect, list } = this.props;
         return (
-            <View onLayout={(e) => {
-                getHeaderPosition && getHeaderPosition(e.nativeEvent.layout);
-            }} style={{}}>
-                <View style={{ flexDirection: "row" }}>
-                    {Array(5)
-                        .fill(5)
-                        .map((el, index) => {
-                            return (
-                                <View
-                                    key={index}
-                                    style={[
-                                        {
-                                            flex: 1,
-                                            paddingVertical: 5,
-                                            width: "20%",
-                                            borderTopWidth: StyleSheet.hairlineWidth,
-                                            borderTopColor: "#EBEBEB"
-                                        },
-                                        index != 0
-                                            ? {
-                                                borderLeftWidth: StyleSheet.hairlineWidth,
-                                                borderLeftColor: "#EBEBEB"
-                                            }
-                                            : null
-                                    ]}
-                                >
-                                    <IBText size={11} center lineHeight={13} color={"#999999"}>
-                                        周一
-                  </IBText>
-                                    <IBText size={11} center lineHeight={13} color={"#999999"}>
-                                        （02-10）
-                  </IBText>
-                                </View>
-                            );
-                        })}
-                </View>
-                <View style={{ borderTopColor: '#FF3355', borderTopWidth: StyleSheet.hairlineWidth, borderBottomColor: '#3399FF', borderBottomWidth: StyleSheet.hairlineWidth }}>
-                    {[{ color: '#FF3355' }, { color: '#FF3355' }, { color: '#3399FF' }]
-                        .map((el, i) => {
-                            return (
-                                <View key={i} style={[{
-                                    flexDirection: "row",
-
-                                }, i !== 0 && {
-                                    borderTopColor: el.color,
-                                    borderTopWidth: StyleSheet.hairlineWidth,
-                                }]}>
-                                    {Array(5)
-                                        .fill({
-
-                                        })
-                                        .map((item, index) => {
-                                            const desc = '招商局蛇口工业区控股股份有限公司'.slice(0, Math.ceil(Math.random() * '招商局蛇口工业区控股股份有限公司'.length));
-                                            const name = '20招商蛇口MTN001'.slice(0, Math.ceil(Math.random() * '20招商蛇口MTN001'.length))
-                                            return (
-                                                <View
-                                                    key={index}
-                                                    style={[
-                                                        {
-                                                            flex: 1,
-                                                            padding: 8,
-                                                            width: "20%"
-                                                        },
-                                                        index != 0
-                                                        && {
+            <View
+                onLayout={e => {
+                    getHeaderPosition && getHeaderPosition(e.nativeEvent.layout);
+                }}
+                style={{}}
+            >
+                {list.map((week, monthIndex) => {
+                    const maxWeekItems = Math.max(
+                        ...week.map(el => el.issueInfoVoList.length)
+                    );
+                    return (
+                        <View key={monthIndex} style={{}}>
+                            <View style={{ flexDirection: 'row' }}>
+                                {week.map((items, wIndex) => {
+                                    return (
+                                        <View key={wIndex} style={{ width: '20%', flex: 1 }}>
+                                            <View
+                                                style={[
+                                                    {
+                                                        paddingVertical: 5,
+                                                        borderTopWidth: StyleSheet.hairlineWidth,
+                                                        borderTopColor: '#EBEBEB',
+                                                        borderBottomWidth: StyleSheet.hairlineWidth,
+                                                        borderBottomColor: '#EBEBEB'
+                                                    },
+                                                    wIndex != 0
+                                                        ? {
                                                             borderLeftWidth: StyleSheet.hairlineWidth,
-                                                            borderLeftColor: el.color,
+                                                            borderLeftColor: '#EBEBEB'
                                                         }
-                                                    ]}
+                                                        : null
+                                                ]}
+                                            >
+                                                <IBText
+                                                    size={11}
+                                                    center
+                                                    lineHeight={13}
+                                                    color={'#999999'}
                                                 >
-
-                                                    <TouchableOpacity onPress={(e) => {
-                                                        const handle = findNodeHandle(e.target)
-
-                                                        UIManager.measure(handle, (x, y, width, height, pageX, pageY) => {
-                                                            console.log('相对父视图位置x:', x);
-                                                            console.log('相对父视图位置y:', y);
-                                                            console.log('组件宽度width:', width);
-                                                            console.log('组件高度height:', height);
-                                                            console.log('距离屏幕的绝对位置x:', pageX);
-                                                            console.log('距离屏幕的绝对位置y:', pageY);
-                                                            const { width: w, height: h } = Dimensions.get('screen')
-                                                            console.log('屏幕宽度:', w);
-                                                            console.log('屏幕高度:', h);
-                                                            fromRect && fromRect({
-                                                                x: pageX, y: pageY, width: width, height: height
-                                                            })
-                                                        })
-                                                        // console.log(e.target..pageX,e.pageY);
-                                                    }}>
-
-
-                                                        <View style={{ height: 34 }}>
-                                                            <IBText
-                                                                size={12}
-                                                                lineHeight={17}
-                                                                numberOfLines={2}
-                                                                color={el.color}
-                                                            >
-                                                                {name}
-                                                            </IBText>
-                                                        </View>
-                                                        <View style={{ flex: 1 }}>
-
-                                                            <View style={{}}>
-                                                                <IBText
-                                                                    size={10}
-                                                                    numberOfLines={3}
-                                                                    lineHeight={14}
-                                                                    color={"#807375"}
-                                                                >
-                                                                    {desc}
-                                                                </IBText>
-                                                            </View>
-                                                            <View style={{}}>
-                                                                <IBText
-                                                                    size={10}
-                                                                    numberOfLines={1}
-                                                                    lineHeight={14}
-                                                                    color={"#B3A1A4"}
-                                                                >
-                                                                    还有9项…
+                                                    {items.week}
+                                                </IBText>
+                                                <IBText
+                                                    size={11}
+                                                    center
+                                                    lineHeight={13}
+                                                    color={'#999999'}
+                                                >
+                                                    10-22
                           </IBText>
-                                                            </View>
-                                                        </View>
-                                                    </TouchableOpacity>
+                                            </View>
+                                            {items.issueInfoVoList.length === 0 && wIndex === 2 && (
+                                                <View style={{ paddingVertical: 20 }}>
+                                                    <IBText size={13} lineHeight={15} color={'#666'}>
+                                                        暂无数据...
+                            </IBText>
                                                 </View>
-                                            );
-                                        })}
-                                </View>
-                            );
-                        })}
-                </View>
+                                            )}
+                                            {items.issueInfoVoList
+                                                .concat(
+                                                    Array(
+                                                        maxWeekItems - items.issueInfoVoList.length
+                                                    ).fill(null)
+                                                )
+                                                .map((day, dayIndex) => {
+                                                    const desc = '招商局蛇口工业区控股股份有限公司'.slice(
+                                                        0,
+                                                        Math.ceil(
+                                                            Math.random() *
+                                                            '招商局蛇口工业区控股股份有限公司'.length
+                                                        )
+                                                    );
+                                                    const name = '20招商蛇口MTN001'.slice(
+                                                        0,
+                                                        Math.ceil(Math.random() * '20招商蛇口MTN001'.length)
+                                                    );
+                                                    const bColor = [
+                                                        { color: '#FF3355' },
+                                                        { color: '#FF3355' },
+                                                        { color: '#3399FF' }
+                                                    ];
+                                                    return (
+                                                        <View
+                                                            key={dayIndex}
+                                                            style={[
+                                                                {
+                                                                    padding: 8,
+                                                                    borderColor: '#FF3355',
+                                                                    borderWidth: StyleSheet.hairlineWidth,
+                                                                    backgroundColor: 'rgba(255,51,85,0.05)',
+                                                                    borderRightWidth: 0,
+                                                                    borderTopWidth: 0,
+                                                                    height: 102
+                                                                }
+                                                            ]}
+                                                        >
+                                                            {!Boolean(day) ? (
+                                                                <View style={{}}></View>
+                                                            ) : (
+                                                                    <TouchableOpacity
+                                                                        onPress={e => {
+                                                                            const handle = findNodeHandle(e.target);
+
+                                                                            UIManager.measure(
+                                                                                handle,
+                                                                                (x, y, width, height, pageX, pageY) => {
+                                                                                    console.log('相对父视图位置x:', x);
+                                                                                    console.log('相对父视图位置y:', y);
+                                                                                    console.log('组件宽度width:', width);
+                                                                                    console.log('组件高度height:', height);
+                                                                                    console.log(
+                                                                                        '距离屏幕的绝对位置x:',
+                                                                                        pageX
+                                                                                    );
+                                                                                    console.log(
+                                                                                        '距离屏幕的绝对位置y:',
+                                                                                        pageY
+                                                                                    );
+                                                                                    const {
+                                                                                        width: w,
+                                                                                        height: h
+                                                                                    } = Dimensions.get('screen');
+                                                                                    console.log('屏幕宽度:', w);
+                                                                                    console.log('屏幕高度:', h);
+                                                                                    fromRect &&
+                                                                                        fromRect({
+                                                                                            x: pageX,
+                                                                                            y: pageY,
+                                                                                            width: width,
+                                                                                            height: height
+                                                                                        });
+                                                                                }
+                                                                            );
+                                                                            // console.log(e.target..pageX,e.pageY);
+                                                                        }}
+                                                                    >
+                                                                        <View style={{}}>
+                                                                            <IBText
+                                                                                size={12}
+                                                                                lineHeight={17}
+                                                                                numberOfLines={2}
+                                                                                color={'red'}
+                                                                            >
+                                                                                {name}
+                                                                            </IBText>
+                                                                        </View>
+                                                                        <View style={{}}>
+                                                                            <View style={{}}>
+                                                                                <IBText
+                                                                                    size={10}
+                                                                                    numberOfLines={3}
+                                                                                    lineHeight={14}
+                                                                                    color={'#807375'}
+                                                                                >
+                                                                                    {desc}
+                                                                                </IBText>
+                                                                            </View>
+                                                                            <View style={{}}>
+                                                                                <IBText
+                                                                                    size={10}
+                                                                                    numberOfLines={1}
+                                                                                    lineHeight={14}
+                                                                                    color={'#B3A1A4'}
+                                                                                >
+                                                                                    还有9项…
+                                        </IBText>
+                                                                            </View>
+                                                                        </View>
+                                                                    </TouchableOpacity>
+                                                                )}
+                                                        </View>
+                                                    );
+                                                })}
+                                        </View>
+                                    );
+                                })}
+                            </View>
+                        </View>
+                    );
+                })}
             </View>
         );
     }
 }
+
+function TitleTips({ }) {
+    return (
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+            {[
+                {
+                    name: "主场",
+                    bgColor: "rgba(255,51,85,0.07)",
+                    borColor: "rgba(255,51,85,0.5)"
+                },
+                {
+                    name: "客场",
+                    bgColor: "rgba(51,153,255,0.1)",
+                    borColor: "rgba(51,153,255,0.5)"
+                }
+            ].map((el, index) => {
+                return (
+                    <View
+                        key={index}
+                        style={{
+                            marginLeft: index == 0 ? 0 : 8,
+                            flexDirection: "row",
+                            alignItems: "center"
+                        }}
+                    >
+                        <View
+                            style={{
+                                backgroundColor: el.bgColor,
+                                width: 12,
+                                height: 12,
+                                marginRight: 4,
+                                borderColor: el.borColor,
+                                borderWidth: StyleSheet.hairlineWidth
+                            }}
+                        ></View>
+                        <IBText size={13} lineHeight={15} color={"#333"}>
+                            {el.name}
+                        </IBText>
+                    </View>
+                );
+            })}
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1

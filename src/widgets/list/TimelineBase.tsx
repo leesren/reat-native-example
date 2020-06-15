@@ -10,6 +10,7 @@ type Props = {
   wrapStyle?: ViewStyle;
   tipsStyle?: ViewStyle;
   lineStyle?: ViewStyle;
+  showLastLine?: Boolean;
   children?: React.ReactNode | React.ReactNodeArray;
 };
 export class TimelineBase extends PureComponent<Props, any> {
@@ -18,12 +19,14 @@ export class TimelineBase extends PureComponent<Props, any> {
   }
 
   render() {
-    let { style, wrapStyle, tipsStyle, lineStyle } = this.props;
+    let { style, wrapStyle, tipsStyle, lineStyle, showLastLine = true } = this.props;
     let items = React.Children.map(this.props.children, child => child);
 
     return (
       <View style={style}>
         {items.map((el, index) => {
+          const isLastLine = items.length - 1 === index;
+          const showLine = !isLastLine ? true : showLastLine
           return (
             <View
               key={'m.' + index}
@@ -52,7 +55,7 @@ export class TimelineBase extends PureComponent<Props, any> {
                   tipsStyle
                 ]}
               />
-              <View
+              {showLine && <View
                 style={[
                   {
                     position: 'absolute',
@@ -65,7 +68,7 @@ export class TimelineBase extends PureComponent<Props, any> {
                   },
                   lineStyle
                 ]}
-              />
+              />}
             </View>
           );
         })}

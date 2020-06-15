@@ -33,7 +33,27 @@ class Example extends React.Component<any, State> {
       <ScrollView style={[styles.container, { backgroundColor: '#fff' }]}>
         <List.Section>
           <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
-            timeline base
+            timeline base 1
+          </List.Subheader>
+          <View style={{ padding: 15 }}>
+            <TimelineBase lineStyle={{ backgroundColor: '#FF3355' }} tipsStyle={{ borderColor: '#FF3355', }} showLastLine={false}>
+
+              <View style={{ paddingBottom: 15 }}>
+                <IBText size={14} color={'#333'} lineHeight={17}>
+                  2019-05-19 14:54:25 | 王光海
+                </IBText>
+              </View>
+              <View style={{ paddingBottom: 0 }}>
+                <IBText size={14} color={'#333'} lineHeight={17}>
+                  2019-05-19 14:54:25 | 王光海
+                </IBText>
+              </View>
+            </TimelineBase>
+          </View>
+        </List.Section>
+        <List.Section>
+          <List.Subheader style={{ backgroundColor: '#f2f2f2' }}>
+            timeline base2
           </List.Subheader>
           <View style={{ padding: 15 }}>
             <TimelineBase>

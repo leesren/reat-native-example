@@ -1,17 +1,21 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "dev": "expo start",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --watch --coverage=false",
+    "test:debug": "jest -o --watch --coverage=false"
   },
   "dependencies": {
     "@callstack/react-theme-provider": "^3.0.3",
     "@expo/vector-icons": "^10.0.3",
     "@reach/router": "^1.2.1",
     "@react-navigation/web": "^1.0.0-alpha.9",
+    "antd-mobile": "^2.1.8",
     "expo": "^34.0.1",
     "expo-asset": "^6.0.0",
     "expo-constants": "^6.0.0",
@@ -31,10 +35,26 @@
     "react-navigation": "^3.11.1"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.5",
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.57.65",
     "babel-preset-expo": "^6.0.0",
+    "jest-expo": "^37.0.0",
+    "react-test-renderer": "^16.13.1",
     "typescript": "^3.4.5"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx,ts,tsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.js"
+    ]
   },
   "private": true
 }
